@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+
+<script type="text/javascript">
+            window.onload = ()=> { //読み込み後の処理
+                 session_message();
+            };
+            function session_message(){
+		    if (window.sessionStorage.getItem(['q1']) == "OK"){
+		        document.getElementById("q1_message").innerHTML = "Q1正解！！";
+		    }else{
+		        document.getElementById("q1_message").innerHTML = "";
+		    }
+		    if (window.sessionStorage.getItem(['q2']) == "OK"){
+		        document.getElementById("q2_message").innerHTML = "Q2正解！！";
+		    }else{
+		        document.getElementById("q2_message").innerHTML = "";
+		    }
+            }
+
+            function anwer_check1(){
+                if (answer1text.value == "あいう"){
+		    window.sessionStorage.setItem(['q1'],['OK']);
+		    session_message();
+			
+                }else{
+                    alert("回答が違います");
+                }
+            }
+            function anwer_check2(){
+                if (answer2text.value == "10"){
+		    window.sessionStorage.setItem(['q2'],['OK']);
+		    session_message();
+			
+                }else{
+                    alert("回答が違います");
+                }
+            }
+
+            function reset(){
+		window.sessionStorage.clear();
+		session_message();
+            }
+
+	
+
+        </script>
+</head>
+
+<body>
+<b>test1</b>
+
+<style>
+  input {
+    margin-bottom: 5px;
+  }
+</style>
+
+<p>問題1</p>
+
+  <label>答え1(正解は「あいう」)：<input type="text" id="answer1text" /></label><br>
+  <input type="button" id="answer1" value="回答を送信" onClick="return anwer_check1();" />
+<span id="q1_message"></span></p>
+
+
+
+<p>問題2</p>
+
+  <label>答え2(正解は10)：<input type="text" id="answer2text" /></label><br>
+  <input type="button" id="answer2" value="回答を送信" onClick="return anwer_check2();" />
+<span id="q2_message"></span></p>
+
+
+
+<button type="button" onClick="return reset();">リセット</button>
+
+<br>
+<a href="index.html">index</a>
+
+</html>
