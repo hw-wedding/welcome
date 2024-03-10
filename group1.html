@@ -11,43 +11,117 @@
 
 <script type="text/javascript">
             window.onload = ()=> { //読み込み後の処理
-                 session_message();
+                 session_check();
             };
+
+            function session_check(){
+            	session_message();
+            	if (window.sessionStorage.getItem(['q1']) == "OK"
+            		&& window.sessionStorage.getItem(['q2']) == "OK"
+            		&& window.sessionStorage.getItem(['q3']) == "OK"
+            		&& window.sessionStorage.getItem(['q4']) == "OK"
+            		&& window.sessionStorage.getItem(['q5']) == "OK"){
+            			window.sessionStorage.setItem(['q1-5'],['OK']);
+            	}
+            	
+			}
+
             function session_message(){
-		    if (window.sessionStorage.getItem(['q1']) == "OK"){
-		        document.getElementById("q1_message").innerHTML = "Q1正解！！";
-		    }else{
-		        document.getElementById("q1_message").innerHTML = "";
-		    }
-		    if (window.sessionStorage.getItem(['q2']) == "OK"){
-		        document.getElementById("q2_message").innerHTML = "Q2正解！！";
-		    }else{
-		        document.getElementById("q2_message").innerHTML = "";
-		    }
+			    if (window.sessionStorage.getItem(['q1']) == "OK"){
+			        document.getElementById("q1_message").innerHTML = "問1正解！！キーワードは「びす」";
+			    }else{
+			        document.getElementById("q1_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q2']) == "OK"){
+			        document.getElementById("q2_message").innerHTML = "問2正解！！キーワードは「わべ」";
+			    }else{
+			        document.getElementById("q2_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q3']) == "OK"){
+			        document.getElementById("q3_message").innerHTML = "問3正解！！キーワードは「たて」";
+			    }else{
+			        document.getElementById("q3_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q4']) == "OK"){
+			        document.getElementById("q4_message").innerHTML = "問4正解！！キーワードは「たの」";
+			    }else{
+			        document.getElementById("q4_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q5']) == "OK"){
+			        document.getElementById("q5_message").innerHTML = "問5正解！！キーワードは「けゆ」";
+			    }else{
+			        document.getElementById("q5_message").innerHTML = "";
+			    }
             }
 
             function anwer_check1(){
-                if (answer1text.value == "あいう"){
-		    window.sessionStorage.setItem(['q1'],['OK']);
-		    session_message();
+                if (answer1text.value == "若奈"){
+					window.sessionStorage.setItem(['q1'],['OK']);
+					session_check();
 			
                 }else{
-                    alert("回答が違います");
-                }
-            }
-            function anwer_check2(){
-                if (answer2text.value == "10"){
-		    window.sessionStorage.setItem(['q2'],['OK']);
-		    session_message();
-			
-                }else{
-                    alert("回答が違います");
+                    alert("問1:回答が違います");
                 }
             }
 
+            function anwer_check2(){
+                if (answer2text.value == "20221123"){
+				    window.sessionStorage.setItem(['q2'],['OK']);
+				    session_check();
+			
+                }else{
+                    alert("問2:回答が違います");
+                }
+            }
+
+            function anwer_check3(){
+                if (answer1text.value == "アイス"){
+					window.sessionStorage.setItem(['q3'],['OK']);
+					session_check();
+			
+                }else{
+                    alert("問3:回答が違います");
+                }
+            }
+
+
+            function anwer_check4(){
+                if (answer1text.value == "xxx"){
+					window.sessionStorage.setItem(['q4'],['OK']);
+					session_check();
+			
+                }else{
+                    alert("問4:回答が違います");
+                }
+            }
+
+
+            function anwer_check5(){
+                if (answer1text.value == "xxx"){
+					window.sessionStorage.setItem(['q5'],['OK']);
+					session_check();
+			
+                }else{
+                    alert("問5:回答が違います");
+                }
+            }
+
+            function click_ring1(){
+            alert("リングゲット");
+            	if (window.sessionStorage.getItem(['q1-5']) == "OK" && window.sessionStorage.getItem(['q1ring']) != "OK"){
+					window.sessionStorage.setItem(['q1ring'],['OK']);
+					
+				}
+            }
+
+
             function reset(){
-		window.sessionStorage.clear();
-		session_message();
+				window.sessionStorage.clear();
+				session_check();
             }
 </script>
 </head>
@@ -68,45 +142,142 @@
 
 <h2 class="fs1">グループ1　問題</h2>
 
-<p>以下の問題を解き、キーワードを集めてください。</p>
+<p>以下の問題を解いてキーワードを集め<br>
+キーワードの指示に従ってください</p>
 
 <details open class="question">
-  <summary>問題1</summary>
-  <p><img src="images/g1q1.png"></p>
+  <summary>問1</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q1_w.png">
+  <img class="question" src="images/taparea.png" onClick="return click_ring1();">
+  </div></p>
   
   <details class="hint">
-  <summary>問題1 - ヒント1</summary>
-  <p>ヒント1xxxx</p>
+  <summary>問1 - ヒント1</summary>
+  <p>「た」「ろ」を置き換えて考える</p>
   </details>
   <details class="hint">
-  <summary>問題1 - ヒント2</summary>
-  <p>ヒント2xxxx</p>
+  <summary>問1 - ヒント2</summary>
+  <p>「た」「ろ」で1文字の漢字になる</p>
   </details>
-  <label>問1回答(正解は「あいう」)：<input type="text" id="answer1text" /></label><br>
+  <details class="hint">
+  <summary>問1 - ヒント3</summary>
+  <p>「た」「ろ」をカタカナに</p>
+  </details>
+  <details class="hint">
+  <summary>問1 - ヒント4</summary>
+  <p>漢字が分からなければプロフィールシート参照</p>
+  </details>
+  <label>問1回答：<input type="text" id="answer1text" /></label><br>
   <input type="button" id="answer1" value="問1の回答を送信" onClick="return anwer_check1();" />
 </details>
 <p><span id="q1_message"></span></p>
 
 <details open class="question">
-  <summary>問題2</summary>
-  <p><img src="images/g1q2.png"></p>
+  <summary>問2</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q2b.png">
+  <img class="question" src="images/taparea.png">
+  </div></p>
   
   <details class="hint">
-  <summary>問題2 - ヒント1</summary>
-  <p>ヒント1xxxx</p>
+  <summary>問2 - ヒント1</summary>
+  <p>何の形でしょうか？<br><img class="question" src="images/q2b_hint1.png"></p>
   </details>
   <details class="hint">
-  <summary>問題2 - ヒント2</summary>
-  <p>ヒント2xxxx</p>
+  <summary>問2 - ヒント2</summary>
+  <p>年は白い部分に着目</p>
   </details>
-  <label>問2回答(正解は「10」)：<input type="text" id="answer2text" /></label><br>
+  <details class="hint">
+  <summary>問2 - ヒント3</summary>
+  <p><img class="question" src="images/q2b_hint2.png"></p>
+  </details>
+  <details class="hint">
+  <summary>問2 - ヒント4</summary>
+  <p>年と形からカレンダーで当てはまる月を探してね</p>
+  </details>
+  <label>問2回答：<input type="text" id="answer2text" /></label><br>
   <input type="button" id="answer2" value="問2の回答を送信" onClick="return anwer_check2();" />
 </details>
 <p><span id="q2_message"></span></p>
 
+<details open class="question">
+  <summary>問3</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q3.png">
+  <img class="question" src="images/taparea.png">
+  <img class="question" src="images/taparea.png">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問3 - ヒント1</summary>
+  <p>招待状を確認しよう</p>
+  </details>
+  <details class="hint">
+  <summary>問3 - ヒント2</summary>
+  <p>紫の部分は招待状のトップにあるドレスの画像</p>
+  </details>
+  <details class="hint">
+  <summary>問3 - ヒント3</summary>
+  <p>ミンチ　→　ランチ</p>
+  </details>
+  <details class="hint">
+  <summary>問3 - ヒント4</summary>
+  <p>音符の上の文字を下の文字に置き換える</p>
+  </details>
+  <label>問3回答：<input type="text" id="answer3text" /></label><br>
+  <input type="button" id="answer3" value="問3の回答を送信" onClick="return anwer_check3();" />
+</details>
+<p><span id="q3_message"></span></p>
 
+<details open class="question">
+  <summary>問4</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q4.png">
+  <img class="question" src="images/taparea.png">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問4 - ヒント1</summary>
+  <p>xxxx</p>
+  </details>
+  <details class="hint">
+  <summary>問4 - ヒント2</summary>
+  <p>ヒント2xxxx</p>
+  </details>
+  <label>問4回答：<input type="text" id="answer4text" /></label><br>
+  <input type="button" id="answer4" value="問4の回答を送信" onClick="return anwer_check4();" />
+</details>
+<p><span id="q4_message"></span></p>
 
-<button type="button" onClick="return reset();">リセット</button>
+<details open class="question">
+  <summary>問5</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q5.png">
+  <img class="question" src="images/taparea.png">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問5 - ヒント1</summary>
+  <p>xxxx</p>
+  </details>
+  <details class="hint">
+  <summary>問5 - ヒント2</summary>
+  <p>ヒント2xxxx</p>
+  </details>
+  <label>問5回答：<input type="text" id="answer5text" /></label><br>
+  <input type="button" id="answer5" value="問5の回答を送信" onClick="return anwer_check5();" />
+</details>
+<p><span id="q5_message"></span></p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<button type="button" onClick="return reset();">全ての回答をリセット</button>
 
 </section>
 

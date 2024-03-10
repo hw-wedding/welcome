@@ -141,6 +141,9 @@ body:not(.home) #container {
 /*トップページ以外のヘッダー*/
 body:not(.home) header {
 	background: var(--primary-color);	/*背景色。css冒頭で指定しているテーマカラーを読み込みます*/
+	background-image: url(../images/header_bg.png); 
+	background-repeat: no-repeat;
+	background-size: auto;
 	height: 80px;					/*高さ*/
 	display: flex;					/*flexボックスを使う指定*/
 	justify-content: space-between;	/*並びかたの種類の指定*/
@@ -158,7 +161,7 @@ body:not(.home) header {
 	position: absolute;z-index: 1;
 	top: 50%;							/*天地左右中央に配置する為の指定*/
 	left: 50%;							/*天地左右中央に配置する為の指定*/
-	transform: translate(-50%, -50%);	/*天地左右中央に配置する為の指定*/
+	transform: translate(-50%, 0%);	/*天地左右中央に配置する為の指定*/
 }
 
 /*トップページ以外のロゴ*/
@@ -628,6 +631,35 @@ footer .pr {display: block;}
 	border-bottom: 1px solid #e5e5e5;	/*下線の幅、線種、色*/
 }
 .hint summary {
-	font-size: 0.8rem;		/*文字サイズ。1.3倍。*/
+	font-size: 0.8rem;		/*文字サイズ。0.8倍。*/
 	border-bottom: 0px;	/*下線の幅、線種、色*/
+}
+.hint p {
+	font-size: 0.8rem;		/*文字サイズ。0.8倍。*/
+}
+.question_img{
+    position: relative;
+    display: inline-block;
+    width: 200px;
+}
+.question_img img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.question_img img:nth-of-type(2){
+    position: absolute;
+    left: 12%;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0.0;
+}
+.question_img img:nth-of-type(3){
+    position: absolute;
+    left: 35%;
+    top: 63%;
+    width: 40px;
+    height: 40px;
+    opacity: 0.0;
 }
