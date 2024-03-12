@@ -148,7 +148,7 @@ body:not(.home) header {
 	display: flex;					/*flexボックスを使う指定*/
 	justify-content: space-between;	/*並びかたの種類の指定*/
 	align-items: center;			/*垂直揃えの指定。天地中央に配置されるように。*/
-	padding: 0 5%;					/*上下、左右へのヘッダー内の余白*/
+	padding: 0 0;					/*上下、左右へのヘッダー内の余白*/
 }
 
 /*ロゴ共通*/
@@ -645,21 +645,44 @@ footer .pr {display: block;}
 .question_img img{
     display: block;
     max-width: 100%;
-    height: auto;
 }
-.question_img img:nth-of-type(2){
+.ring1{
     position: absolute;
     left: 12%;
     top: 0;
     width: 40px;
     height: 40px;
-    opacity: 0.0;
+    opacity: 0.5;
 }
-.question_img img:nth-of-type(3){
+.ring2{
+    position: absolute;
+    left: 45%;
+    top: 65%;
+    width: 25px;
+    height: 25px;
+    opacity: 0.5;
+}
+.ring3{
+    position: absolute;
+    left: 45%;
+    top: 43%;
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+}
+.ring4{
+    position: absolute;
+    left: 4%;
+    top: 25%;
+    width: 20px;
+    height: 60px;
+    opacity: 0.5;
+}
+.ring5{
     position: absolute;
     left: 35%;
     top: 63%;
     width: 40px;
     height: 40px;
-    opacity: 0.0;
+    opacity: 0.5;
 }

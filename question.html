@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>問題 - Hikaru & Wakana Wedding</title>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<link rel="stylesheet" href="css/style.css">
+
+
+<script type="text/javascript">
+            window.onload = ()=> { //読み込み後の処理
+                 session_check();
+            };
+
+            function session_check(){
+            	session_message();
+            	if (window.sessionStorage.getItem(['q1']) == "OK"
+            		&& window.sessionStorage.getItem(['q2']) == "OK"
+            		&& window.sessionStorage.getItem(['q3']) == "OK"
+            		&& window.sessionStorage.getItem(['q4']) == "OK"
+            		&& window.sessionStorage.getItem(['q5']) == "OK"
+            		&& window.sessionStorage.getItem(['q6']) == "OK"){
+            			window.sessionStorage.setItem(['q1-6'],['OK']);
+            	}
+            	
+			}
+
+            function session_message(){
+			    if (window.sessionStorage.getItem(['q1']) == "OK"){
+			        document.getElementById("q1_message").innerHTML = "問1正解！！キーワードは「わむ」リング";
+			    }else{
+			        document.getElementById("q1_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q2']) == "OK"){
+			        document.getElementById("q2_message").innerHTML = "問2正解！！キーワードは「をっ」";
+			    }else{
+			        document.getElementById("q2_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q3']) == "OK"){
+			        document.getElementById("q3_message").innerHTML = "問3正解！！キーワードは「さつ」";
+			    }else{
+			        document.getElementById("q3_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q4']) == "OK"){
+			        document.getElementById("q4_message").innerHTML = "問4正解！！キーワードは「がの」";
+			    }else{
+			        document.getElementById("q4_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q5']) == "OK"){
+			        document.getElementById("q5_message").innerHTML = "問5正解！！キーワードは「しゆ」";
+			    }else{
+			        document.getElementById("q5_message").innerHTML = "";
+			    }
+
+			    if (window.sessionStorage.getItem(['q6']) == "OK"){
+			        document.getElementById("q6_message").innerHTML = "問5正解！！キーワードは「てび」";
+			    }else{
+			        document.getElementById("q6_message").innerHTML = "";
+			    }
+            }
+
+            function anwer_check1(){
+                if (answer1text.value == "若奈"){
+					window.sessionStorage.setItem(['q1'],['OK']);
+					session_check();
+			
+                }else{
+                    alert("問1:回答が違います");
+                }
+            }
+
+            function anwer_check2(){
+                if (answer2text.value == "20221123"){
+				    window.sessionStorage.setItem(['q2'],['OK']);
+				    session_check();
+			
+                }else{
+                    alert("問2:回答が違います");
+                }
+            }
+
+            function anwer_check3(){
+                if (answer3text.value == "332" || answer3text.value == "３３２"){
+					window.sessionStorage.setItem(['q3'],['OK']);
+					session_check();
+			
+                }else{
+                    alert("問3:回答が違います");
+                }
+            }
+
+
+            function anwer_check4(){
+                if (answer4text.value == "xxx"){
+					window.sessionStorage.setItem(['q4'],['OK']);
+					session_check();
+			
+                }else{
+                    alert("問4:回答が違います");
+                }
+            }
+
+
+            function anwer_check5(){
+                if (answer5text.value == "アイス"){
+					window.sessionStorage.setItem(['q5'],['OK']);
+					session_check();
+			
+                }else{
+                    alert("問5:回答が違います");
+                }
+            }
+
+            function anwer_check6(){
+                if (answer6text.value == "xxx"){
+					window.sessionStorage.setItem(['q6'],['OK']);
+					session_check();
+			
+                }else{
+                    alert("問5:回答が違います");
+                }
+            }
+
+            function click_ring1(){
+            alert("リングゲット");
+            	if (window.sessionStorage.getItem(['q1-6']) == "OK" && window.sessionStorage.getItem(['q1ring']) != "OK"){
+					window.sessionStorage.setItem(['q1ring'],['OK']);
+					
+				}
+            }
+
+
+            function reset(){
+				window.sessionStorage.clear();
+				session_check();
+            }
+</script>
+</head>
+
+<body>
+
+<div id="container">
+
+<header>
+<h1 id="logo"><a href="index.html"><img src="images/logo_small.png" alt="Hikaru & Wakana Wedding"></a></h1>
+</header>
+
+<div id="contents">
+
+<main>
+
+<section id="about">
+
+<h2 class="fs1">問題</h2>
+
+<p>以下の問題を解いてキーワードを集め<br>
+キーワードの指示に従ってください</p>
+
+<details open class="question">
+  <summary>問1</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q1_w.png">
+  <img class="ring1" src="images/taparea.png" onClick="return click_ring1();">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問1 - ヒント1</summary>
+  <p>「た」「ろ」を置き換えて考える</p>
+  </details>
+  <details class="hint">
+  <summary>問1 - ヒント2</summary>
+  <p>「た」「ろ」で1文字の漢字になる</p>
+  </details>
+  <details class="hint">
+  <summary>問1 - ヒント3</summary>
+  <p>「た」「ろ」をカタカナに</p>
+  </details>
+  <details class="hint">
+  <summary>問1 - ヒント4</summary>
+  <p>漢字が分からなければプロフィールシート参照</p>
+  </details>
+  <label>問1回答：<input type="text" id="answer1text" /></label><br>
+  <input type="button" id="answer1" value="問1の回答を送信" onClick="return anwer_check1();" />
+</details>
+<p><span id="q1_message"></span></p>
+
+<details open class="question">
+  <summary>問2</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q2.png">
+  <img class="ring2" src="images/taparea.png">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問2 - ヒント1</summary>
+  <p>年は白い部分に着目</p>
+  </details>
+  <details class="hint">
+  <summary>問2 - ヒント2</summary>
+  <p><img class="question" src="images/q2_hint1.png" width="180px"></p>
+  </details>
+  <details class="hint">
+  <summary>問2 - ヒント3</summary>
+  <p><img class="question" src="images/q2_hint2.png" width="180px"></p>
+  </details>
+  <details class="hint">
+  <summary>問2 - ヒント4</summary>
+  <p>年と形からカレンダーで当てはまる月を探し、記号のある場所の年月日が答え</p>
+  </details>
+  <label>問2回答：<input type="text" id="answer2text" /></label><br>
+  <input type="button" id="answer2" value="問2の回答を送信" onClick="return anwer_check2();" />
+</details>
+<p><span id="q2_message"></span></p>
+
+<details open class="question">
+  <summary>問3</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q3.png">
+  <img class="ring3" src="images/taparea.png">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問3 - ヒント1</summary>
+  <p>それぞれの記号を数字に変換して計算する</p>
+  </details>
+  <details class="hint">
+  <summary>問3 - ヒント2</summary>
+  <p>何階？</p>
+  </details>
+  <details class="hint">
+  <summary>問3 - ヒント3</summary>
+  <p>何本？</p>
+  </details>
+  <details class="hint">
+  <summary>問3 - ヒント4</summary>
+  <p>何問目？</p>
+  </details>
+  <details class="hint">
+  <summary>問3 - ヒント5</summary>
+  <p>何月？</p>
+  </details>
+  <label>問3回答：<input type="text" id="answer3text" /></label><br>
+  <input type="button" id="answer3" value="問3の回答を送信" onClick="return anwer_check3();" />
+</details>
+<p><span id="q3_message"></span></p>
+
+<details open class="question">
+  <summary>問4</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q4.png">
+  <img class="ring4" src="images/taparea.png">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問4 - ヒント1</summary>
+  <p>xxxx</p>
+  </details>
+  <details class="hint">
+  <summary>問4 - ヒント2</summary>
+  <p>ヒント2xxxx</p>
+  </details>
+  <label>問4回答：<input type="text" id="answer4text" /></label><br>
+  <input type="button" id="answer4" value="問4の回答を送信" onClick="return anwer_check4();" />
+</details>
+<p><span id="q4_message"></span></p>
+
+<details open class="question">
+  <summary>問5</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q5.png">
+  <img class="ring5" src="images/taparea.png">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問5 - ヒント1</summary>
+  <p>招待状を確認しよう</p>
+  </details>
+  <details class="hint">
+  <summary>問5 - ヒント2</summary>
+  <p><img class="question" src="images/q5_hint1.png" width="180px"></p>
+  </details>
+  <details class="hint">
+  <summary>問5 - ヒント3</summary>
+  <p>ミンチ　→　ランチ</p>
+  </details>
+  <details class="hint">
+  <summary>問5 - ヒント4</summary>
+  <p>音符の上の文字を下の文字に置き換える</p>
+  </details>
+  <label>問5回答：<input type="text" id="answer5text" /></label><br>
+  <input type="button" id="answer5" value="問5の回答を送信" onClick="return anwer_check5();" />
+</details>
+<p><span id="q5_message"></span></p>
+
+<details open class="question">
+  <summary>問6</summary>
+  <p><div class="question_img">
+  <img class="question" src="images/q6.png">
+  </div></p>
+  
+  <details class="hint">
+  <summary>問6 - ヒント1</summary>
+  <p>xxxx</p>
+  </details>
+  <details class="hint">
+  <summary>問6 - ヒント2</summary>
+  <p>ヒント2xxxx</p>
+  </details>
+  <label>問6回答：<input type="text" id="answer6text" /></label><br>
+  <input type="button" id="answer6" value="問6の回答を送信" onClick="return anwer_check6();" />
+</details>
+<p><span id="q6_message"></span></p>
+
+<br>
+<br>
+
+<div id="q_after">
+  <details class="hint">
+  <summary>キーワードの解読 - ヒント1</summary>
+  <p>問題は全て非表示にすると閃くかも</p>
+  </details>
+  <details class="hint">
+  <summary>キーワードの解読 - ヒント2</summary>
+  <p>縦読み</p>
+  </details>
+  <details class="hint">
+  <summary>キーワードの解読 - ヒント3</summary>
+  <p>キーワードを右から縦読みすると「むっつのゆびわをさがして」になるため<br>
+  キーワードの指示は六つの指輪を探すこと</p>
+  </details>
+  <br>
+  <details class="hint">
+  <summary>キーワードの指示 - ヒント1</summary>
+  <p>探す対象は6つで問題も6つということは…</p>
+  </details>
+  <details class="hint">
+  <summary>キーワードの指示 - ヒント2</summary>
+  <p>1つ目：Questionに注目</p>
+  </details>
+  <details class="hint">
+  <summary>キーワードの指示 - ヒント3</summary>
+  <p>2つ目：拡大してよく見ると…</p>
+  </details>
+  <details class="hint">
+  <summary>キーワードの指示 - ヒント4</summary>
+  <p>3つ目：結婚指輪はどこにつける？</p>
+  </details>
+  <details class="hint">
+  <summary>キーワードの指示 - ヒント5</summary>
+  <p>4つ目：改行に違和感</p>
+  </details>
+  <details class="hint">
+  <summary>キーワードの指示 - ヒント6</summary>
+  <p>5つ目：隠していない</p>
+  </details>
+  <details class="hint">
+  <summary>キーワードの指示 - ヒント7</summary>
+  <p>6つ目：指輪を英語にすると？</p>
+  </details>
+</div>
+<br>
+<div id="ring_after">
+<p><img src="images/ring_after.png" width="300px"></p>
+  <details class="hint">
+  <summary>最終問題 - ヒント1</summary>
+  <p>指輪は問題に対応している</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント2</summary>
+  <p>グループ数も問題数も6つ</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント3</summary>
+  <p>自分のグループを忘れた場合は前のページを確認</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント4</summary>
+  <p>自分のグループ番号の問題の指輪からあみだくじをして、色を判断する</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント5</summary>
+  <p>枠に注目</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント6</summary>
+  <p>枠は会場内の何かを表している</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント7</summary>
+  <p>モニターの動画に注目</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント8</summary>
+  <p>前のページのテーブル配置図とムービーの共通点がないか</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント9</summary>
+  <p>ムービーとあみたくじの6色を関連付ける</p>
+  </details>
+  <details class="hint">
+  <summary>最終問題 - ヒント10</summary>
+  <p>ムービーの下側が新郎新婦席とし、ムービー枠の各色の場所があなたのテーブル</p>
+  </details>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<button type="button" onClick="return reset();">全ての回答をリセット</button>
+
+</section>
+
+</main>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<small>Copyright&copy; Hikaru and Wakana All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</footer>
+
+<!--ページの上部へ戻るボタン-->
+<div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
+
+</div>
+<!--/#container-->
+
+<!--開閉ブロック-->
+<div id="menubar">
+
+<nav>
+<ul>
+<li><a href="index.html">ホーム</a></li>
+<li><a href="group1.html">グループ1</a></li>
+<li><a href="group2.html">グループ2</a></li>
+<li><a href="group3.html">グループ3</a></li>
+<li><a href="group4.html">グループ4</a></li>
+<li><a href="group5.html">グループ5</a></li>
+<li><a href="group6.html">グループ6</a></li>
+</ul>
+</nav>
+
+</div>
+<!--/#menubar-->
+
+<!--開閉ボタン（ハンバーガーアイコン）-->
+<div id="menubar_hdr">
+<span></span><span></span><span></span>
+</div>
+
+<!--jQueryの読み込み-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!--パララックス（inview）-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
+<script src="js/jquery.inview_set.js"></script>
+
+<!--このテンプレート専用のスクリプト-->
+<script src="js/main.js"></script>
+
+</body>
+</html>
