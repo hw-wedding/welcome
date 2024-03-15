@@ -25,8 +25,6 @@
 
 /*テンプレート専用cssファイルの読み込み
 ---------------------------------------------------------------------------*/
-@import url("animation.css");
-@import url("inview.css");
 
 
 
@@ -626,7 +624,7 @@ footer .pr {display: block;}
 /*自分で追加
 ---------------------------------------------------------------------------*/
 /*questionブロック内のh3*/
-.question1 summary {
+.question summary {
 	font-size: 1.3rem;		/*文字サイズ。1.3倍。*/
 	border-bottom: 1px solid #e5e5e5;	/*下線の幅、線種、色*/
 }
@@ -637,52 +635,94 @@ footer .pr {display: block;}
 .hint p {
 	font-size: 0.8rem;		/*文字サイズ。0.8倍。*/
 }
+.question_img_p{
+    text-align: center;
+    display: inline-block;
+}
 .question_img{
     position: relative;
     display: inline-block;
-    width: 200px;
+    width: 250px;
 }
 .question_img img{
     display: block;
     max-width: 100%;
 }
-.ring1{
+.ring{
     position: absolute;
+    opacity: 0.0;
+}
+#ring1{
     left: 12%;
     top: 0;
-    width: 40px;
-    height: 40px;
-    opacity: 0.5;
+    width: 45px;
+    height: 45px;
 }
-.ring2{
-    position: absolute;
+#ring2{
     left: 45%;
     top: 65%;
     width: 25px;
     height: 25px;
-    opacity: 0.5;
 }
-.ring3{
-    position: absolute;
+#ring3{
     left: 45%;
     top: 43%;
     width: 20px;
     height: 20px;
-    opacity: 0.5;
 }
-.ring4{
-    position: absolute;
+#ring4{
     left: 4%;
-    top: 25%;
-    width: 20px;
-    height: 60px;
-    opacity: 0.5;
+    top: 27%;
+    width: 25px;
+    height: 85px;
 }
-.ring5{
-    position: absolute;
+#ring5{
     left: 35%;
     top: 63%;
-    width: 40px;
-    height: 40px;
-    opacity: 0.5;
+    width: 50px;
+    height: 50px;
+}
+
+
+/*モーダル
+---------------------------------------------------------------------------*/
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.9);
+  align-items: center;
+  justify-content: center;
+  animation: modalFadeIn 0.3s;
+}
+
+.modal img {
+  max-width: 90%;  /* 画像の最大幅を親要素(modal)の90%に制限し、画面内に収まるようにする */
+  max-height: 100vh;  /* 画像の最大高さをビューポートの高さ(100vh)に制限し、画面内に収まるようにする  */
+  object-fit: contain;  /* 画像の比率を保持しつつ、指定された高さと幅に収める */
+}
+
+.clickable-image:hover {
+  cursor: zoom-in;  /* ホバー時にカーソルをズームインのアイコンに変更 */
+}
+
+.modal img:hover {
+  cursor: zoom-out;  /* モーダル内の画像にホバー時にカーソルをズームアウトのアイコンに変更 */
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
