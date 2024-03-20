@@ -623,6 +623,12 @@ footer .pr {display: block;}
 
 /*自分で追加
 ---------------------------------------------------------------------------*/
+.home_header_img {
+	object-fit:cover;
+	height: 100%;
+}
+
+
 /*questionブロック内のh3*/
 .question summary {
 	font-size: 1.3rem;		/*文字サイズ。1.3倍。*/
