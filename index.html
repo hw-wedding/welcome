@@ -7,6 +7,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="結婚式席次">
 <link rel="stylesheet" href="css/style.css">
+
+<script type="text/javascript">
+	window.onload = function() {
+		var header_bg_obj = document.getElementById('logo_bg');
+		var header_bg_video_obj = header_bg_obj.firstElementChild;
+		video_obj.play().catch(function(error){
+			header_bg_obj.removeChild(header_bg_video_obj);
+			const header_bg_img = document.createElement("img");
+			header_bg_img.src = "images/poster.png";
+			header_bg_obj.appendChild(header_bg_img);
+		}
+	}
+</script>
+
 </head>
 
 <body class="home">
@@ -15,7 +29,9 @@
 
 <header>
 <h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="Hikaru & Wakana Wedding"></a></h1>
-<video src="images/movie.mp4#t=0.001" playsinline autoplay muted loop  poster="images/poster.png"></video>
+<div id="logo_bg">
+<video src="images/movie.mp4" playsinline autoplay muted loop  poster="images/poster.png"></video>
+</div>
 </header>
 
 <div id="contents">
