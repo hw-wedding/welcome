@@ -25,15 +25,15 @@
 		        q_answer_clear(i);
 		    }
 		}
-		all_q_answer_check();
-		all_ring_check();
+		all_q_answer_check(false);
+		all_ring_check(false);
 		
 	}
 
 	function answer_check(n){
 		if( 
-			( n==1 && (answer1text.value == "光" || answer1text.value == "若奈") )
-		|| ( n==2 && answer2text.value == "20221123" )
+			( n==1 && (answer1text.value == "光" || answer1text.value == "若奈" || answer1text.value == "塚本光" || answer1text.value == "長田若奈") )
+		|| ( n==2 && (answer2text.value == "20221123" || answer2text.value == "２０２２１１２３" ) )
 		|| ( n==3 && (answer3text.value == "332" || answer3text.value == "３３２") )
 		|| ( n==4 && answer4text.value == "猫ミーム" )
 		|| ( n==5 && answer5text.value == "アイス" )
@@ -41,6 +41,7 @@
 		){
 			window.sessionStorage.setItem(['q'+n],['OK']);
 			q_answer_right(n);
+			all_q_answer_check(true);
 		}else{
             alert("問"+n+":回答が違います");
 		}
@@ -48,37 +49,36 @@
 	
 	function q_answer_right(n){
 		var str_q_message = [
-			'問1正解！！',
-			'問2正解！！',
-			'問3正解！！',
-			'問4正解！！',
-			'問5正解！！',
-			'問6正解！！<span onClick="return click_ring(6);">リング</span>フィット楽しい'
+			'問1正解！！<br>光と若奈です！よろしくお願いします！',
+			'問2正解！！<br>2022年11月23日は勤労感謝の日で<br>日付固定の祝日なので毎年休みで嬉しいです',
+			'問3正解！！<br>332日＝11か月弱です',
+			'問4正解！！<br>猫ミームはカワイイ＆面白いのでおススメです',
+			'問5正解！！<br>新郎は不満ながらも分けてくれます',
+			'問6正解！！<br>運動嫌いでも<span onClick="return click_ring(6);">リング</span>フィットは続けられました'
 		];
 		var str_q_key = [
-			"わむ",
-			"をっ",
-			"あつ",
-			"つの",
-			"めゆ",
-			"よび"
+			"ゆろ",
+			"びっ",
+			"わか",
+			"さし",
+			"がょ",
+			"せの"
 		]
 		document.getElementById("q"+n+"_message").innerHTML = str_q_message[n-1];
 		document.getElementById("q"+n+"_key").innerHTML = "問"+n+"のキーワードは「<b>"+str_q_key[n-1]+"</b>」";
 		document.getElementById("answer"+n+"text").value = "";
 		document.getElementById("answer"+n+"text").disabled = true;
 		document.getElementById("answer"+n+"").disabled = true;
-		all_q_answer_check();
 	}
 	
 	function q_answer_clear(n){
-		 document.getElementById("q"+n+"_message").innerHTML = "";
+		document.getElementById("q"+n+"_message").innerHTML = "";
 		document.getElementById("q"+n+"_key").innerHTML = "";
 		document.getElementById("answer"+n+"text").disabled = false;
 		document.getElementById("answer"+n+"").disabled = false;
 	}
 	
-	function all_q_answer_check(){
+	function all_q_answer_check(message){
 		var count = 0;
 		for (  var i = 1;  i <= 6;  i++  ) {
 		    if (window.sessionStorage.getItem(['q'+ i]) == "OK"){
@@ -88,16 +88,32 @@
 		if (count == 6){
 			document.getElementById('q_after').style.display = 'block';
 			all_q_answer=true;
+			if (message == true ){
+				alert("すべてのキーワードを集めました\nキーワードの指示に従ってください");
+			}
 		}else{
 			document.getElementById('q_after').style.display = 'none';
 		}
 	}
+
+	function q3_cal(){
+		var q3_cal_1=Number(document.getElementById("q3_cal_1").value);
+		var q3_cal_2=Number(document.getElementById("q3_cal_2").value);
+		var q3_cal_3=Number(document.getElementById("q3_cal_3").value);
+		var q3_cal_4=Number(document.getElementById("q3_cal_4").value);
+		var ans=(q3_cal_1*q3_cal_2+q3_cal_3)*q3_cal_4;
+		alert(ans);
+	}
 	
 	<!--指輪探し-->
 	function click_ring(n){
-		if (all_q_answer && window.sessionStorage.getItem(['q'+n+'ring']) != "OK"){;
-			window.sessionStorage.setItem(['q'+n+'ring'],['OK']);
-			openModal("images/ring"+n+".png");
+		if (all_q_answer){
+			if (window.sessionStorage.getItem(['q'+n+'ring']) == "OK"){
+				alert("この指輪は既に発見しています");
+			}else{
+				window.sessionStorage.setItem(['q'+n+'ring'],['OK']);
+				openModal("images/ring"+n+".png");
+			}
 		}
     }
 
@@ -128,10 +144,10 @@
 	    document.body.removeChild(modal);
 	  });
 	  
-	  all_ring_check();
+	  all_ring_check(true);
 	}
 
-	function all_ring_check(){
+	function all_ring_check(message){
 		var count = 0;
 		for (  var i = 1;  i <= 6;  i++  ) {
 		    if (window.sessionStorage.getItem(['q'+ i + 'ring']) == "OK"){
@@ -139,6 +155,9 @@
 		    }
 		}				
 		if (count == 6){
+			if (message == true ){
+				alert("すべての指輪を集めました\n次が最終問題です");
+			}
 			document.getElementById('ring_after').style.display = 'block';
 			all_ring=true;
 			//ページスクロール
@@ -150,8 +169,14 @@
 	}
 
     function reset(){
-		window.sessionStorage.clear();
-		session_check();
+		if(window.confirm('すべての回答がクリアされますがよろしいですか？\n（最初から解きたい場合や動作がおかしい場合のみ実行してください）')){
+			window.sessionStorage.clear();
+			all_q_answer=false;
+			all_ring=false;
+			session_check();
+		} else {
+		  // 何もしない
+		}
     }
 </script>
 </head>
@@ -170,10 +195,77 @@
 
 <section id="about">
 
-<h2 class="fs1">問題</h2>
 
-<p>以下の問題を解いてキーワードを集め<br>
-キーワードの指示に従ってください</p>
+<h2>Explain<span>説明</span></h2>
+<p>謎解きはご自身のテーブルを当てる内容です</p>
+<p>テーブルごとのグループ分けは以下の通りです</p>
+
+<details open class="question">
+<summary>グループ</summary>
+<dl class="new">
+<dt>グループ1</dt>
+<dd>
+小木曽翔一 様<br>
+喜久山銀治 様<br>
+倉内康行 様<br>
+千葉陵平 様<br>
+中村大成 様<br>
+森浩一郎 様<br>
+</dd>
+<dt>グループ2</dt>
+<dd>
+アレクサンダウィリアム 様<br>
+石垣淳平 様<br>
+伊達聖 様<br>
+西田拓哉 様<br>
+坂野弘長 様<br>
+松原涼太 様<br>
+</dd>
+<dt>グループ3</dt>
+<dd>
+鈴木悠平 様<br>
+塚本博司 様<br>
+土屋建 様<br>
+福田圭佑 様<br>
+安田有佑 様<br>
+山田健太 様<br>
+</dd>
+<dt>グループ4</dt>
+<dd>
+近藤紫布 様<br>
+寺田文香 様<br>
+細川由美子 様<br>
+牧野友里 様<br>
+間島夕季穂 様<br>
+
+</dd>
+<dt>グループ5</dt>
+<dd>
+大谷友香 様<br>
+鹿間詠梨 様<br>
+中村光児 様<br>
+名倉宏貴 様<br>
+長谷川千紗 様<br>
+
+</dd>
+<dt>グループ6</dt>
+<dd>
+上田奈津紀 様<br>
+小林みどり 様<br>
+小林由幸 様<br>
+田中久美 様<br>
+山下由貴 様<br>
+
+</dd>
+</dl>
+</details>
+
+<h2>Question<span>問題</span></h2>
+
+<h3>最初の問題</h3>
+
+<p>以下の問題を全て解いてキーワードを集め　キーワードの指示に従ってください<br>
+解く順番は出題順でなくても問題ありません</p>
 
 <details open class="question">
   <summary>問1</summary>
@@ -187,10 +279,14 @@
   <p>「た」と「ろ」を置き換えて考える</p>
   <details class="hint">
   <summary>問1 - ヒント2</summary>
-  <p><img class="question" src="images/q1_hint1.png" width="180px"></p>
+  <p>「た」と「ろ」で漢字一文字になる</p>
   <details class="hint">
   <summary>問1 - ヒント3</summary>
+  <p><img class="question" src="images/q1_hint1.png" width="180px"></p>
+  <details class="hint">
+  <summary>問1 - ヒント4</summary>
   <p>ひらがなをカタカナに</p>
+  </details> <!--4 -->
   </details> <!--3 -->
   </details> <!--2 -->
   </details> <!--1 -->
@@ -220,13 +316,13 @@
   <p><img class="question" src="images/q2_hint2.png" width="180px"></p>
   <details class="hint">
   <summary>問2 - ヒント4</summary>
-  <p>年と形からカレンダーで当てはまる月を探し、記号のある場所の年月日が答え</p>
+  <p>年と形からカレンダーで当てはまる月を探す</p>
   </details> <!--4 -->
   </details> <!--3 -->
   </details> <!--2 -->
   </details> <!--1 -->
   <p>
-  問2回答：<input type="text" id="answer2text" />
+  問2回答：<input type="text" id="answer2text"  type="number"/>
   <input type="button" id="answer2" value="送信" onClick="return answer_check(2);" />
   </p>
   <p><span id="q2_message"></span></p>
@@ -240,29 +336,42 @@
   <img id="ring3" class="ring" src="images/taparea.png" onClick="return click_ring(3);">
   </div></p>
   
+  <p>
+ (
+ <input type="text" id="q3_cal_1" size="1.5" type="number"/>
+ ×
+ <input type="text" id="q3_cal_2" size="1.5" type="number"/>
+ ＋
+ <input type="text" id="q3_cal_3" size="1.5" type="number"/>
+ )
+ ×
+ <input type="text" id="q3_cal_4" size="1.5" type="number"/>
+  <input type="button" id="q3_cal" value="＝" onClick="return q3_cal();" />
+  </p>
   <details class="hint">
   <summary>問3 - ヒント1</summary>
-  <p>それぞれの記号を数字に変換して計算する</p>
+  <p><img class="question" src="images/q3_hint1.png" width="180px"></p>
   <details class="hint">
   <summary>問3 - ヒント2</summary>
-  <p>今は何階？</p>
+  <p><img class="question" src="images/q3_hint2.png" width="180px"></p>
   <details class="hint">
   <summary>問3 - ヒント3</summary>
-  <p>手の形が表している数は？</p>
+  <p><img class="question" src="images/q3_hint3.png" width="180px"></p>
   <details class="hint">
   <summary>問3 - ヒント4</summary>
-  <p>今は何問目？</p>
+  <p><img class="question" src="images/q3_hint4.png" width="180px"></p>
   <details class="hint">
   <summary>問3 - ヒント5</summary>
-  <p>今は何月？</p>
+  <p>今は何階？<br>手の形が表している数は？<br>今は何問目？<br>今は何月？</p>
   </details> <!--5 -->
   </details> <!--4 -->
   </details> <!--3 -->
   </details> <!--2 -->
   </details> <!--1 -->
   <p>
-  問3回答：<input type="text" id="answer3text" />
+  問3回答：<input type="text" id="answer3text"  type="number"/>
   <input type="button" id="answer3" value="送信" onClick="return answer_check(3);" />
+
   </p>
   <p><span id="q3_message"></span></p>
 </details>
@@ -277,10 +386,30 @@
   
   <details class="hint">
   <summary>問4 - ヒント1</summary>
-  <p>xxxx</p>
+  <p>受付で受け取ったものは？</p>
   <details class="hint">
   <summary>問4 - ヒント2</summary>
-  <p>ヒント2xxxx</p>
+  <p>ゲスト同士で協力して図のようにプロフィールブックを並べてみよう</p>
+  <details class="hint">
+  <summary>問4 - ヒント3</summary>
+  <p>2つのプロフィールブックの境界で場所が一致する記号は？</p>
+  <details class="hint">
+  <summary>問4 - ヒント4</summary>
+  <p>答えは4文字</p>
+  <details class="hint">
+  <summary>問4 - ヒント5</summary>
+  <p>プロフィールブック中で★が重なっている文字を左から読む</p>
+  <details class="hint">
+  <summary>問4 - ヒント6</summary>
+  <p>1文字目：新郎の好きなもの<br>2文字目：猫のひげ<br>3文字目：第一印象<br>4文字目：新婦の好きなもの</p>
+  <details class="hint">
+  <summary>問4 - ヒント7</summary>
+  <p>1文字目：漢字<br>2文字目：カタカナ<br>3文字目：カタカナ<br>4文字目：カタカナ</p>
+  </details> <!--7 -->
+  </details> <!--6 -->
+  </details> <!--5 -->
+  </details> <!--4 -->
+  </details> <!--3 -->
   </details> <!--2 -->
   </details> <!--1 -->
   <p>
@@ -330,10 +459,14 @@
   
   <details class="hint">
   <summary>問6 - ヒント1</summary>
-  <p>xxxx</p>
+  <p>イラストは何を表している？</p>
   <details class="hint">
   <summary>問6 - ヒント2</summary>
-  <p>ヒント2xxxx</p>
+  <p>会場のモニターに注目</p>
+  <details class="hint">
+  <summary>問6 - ヒント3</summary>
+  <p>ムービー中に正解を記しています</p>
+  </details> <!--3 -->
   </details> <!--2 -->
   </details> <!--1 -->
   <p>
@@ -358,12 +491,12 @@
   <p>縦読み</p>
   <details class="hint">
   <summary>キーワードの解読 - ヒント3</summary>
-  <p>キーワードを右から縦読みすると「むっつのゆびわをさがして」になるため<br>
-  キーワードの指示は六つの指輪を探すこと</p>
+  <p>キーワードを右から縦読みすると「ろっかしょのゆびわさがせ」になるため<br>
+  キーワードの指示は6か所にある指輪を探すこと</p>
   <br>
   <details class="hint">
   <summary>キーワードの指示 - ヒント1</summary>
-  <p>探す対象は6つで問題も6つということは…</p>
+  <p>探す対象は6か所で問題も6つということは…</p>
   <details class="hint">
   <summary>キーワードの指示 - ヒント2</summary>
   <p>1つ目：Questionに注目</p>
@@ -398,7 +531,8 @@
 
 <div id="ring_after">
 <h3>最終問題</h3>
-<p><img src="images/ring_after.png" width="300px"></p>
+<p><img src="images/ring_after1.png" width="300px"></p>
+<p><img src="images/ring_after2.png" width="300px"></p>
   <details class="hint">
   <summary>最終問題 - ヒント1</summary>
   <p>指輪は問題に対応している</p>
@@ -407,32 +541,23 @@
   <p>グループ数も問題数も6つ</p>
   <details class="hint">
   <summary>最終問題 - ヒント3</summary>
-  <p>自分のグループを忘れた場合は<a href="index.html">ホーム</a>を確認<br>
-  ページを移動しても、回答状況は保存されています</p>
+  <p>自分のグループ番号は覚えていますか？</p>
   <details class="hint">
   <summary>最終問題 - ヒント4</summary>
-  <p>自分のグループ番号の問題で見つけた指輪からあみだくじをして、色を判断する</p>
+  <p>自分のグループ番号の問題で見つけた指輪からあみだくじをして、イベントを判断する</p>
   <details class="hint">
   <summary>最終問題 - ヒント5</summary>
-  <p>枠に注目</p>
+  <p>あみだくじのイベントの日付がテーブル配置図の日付に対応している</p>
   <details class="hint">
   <summary>最終問題 - ヒント6</summary>
-  <p>枠は会場内の何かを表している</p>
+  <p>交際開始　入籍　結婚式の日付は今までに目にしているはず<br>
+  その他の日付は他の情報から計算や推測する</p>
   <details class="hint">
   <summary>最終問題 - ヒント7</summary>
-  <p>モニターの動画に注目</p>
+  <p>交際開始日＝問2の答え<br>入籍日＝ムービー中に記載<br>結婚式＝今日の日付</p>
   <details class="hint">
   <summary>最終問題 - ヒント8</summary>
-  <p>ムービーとあみたくじの6色を関連付ける</p>
-  <details class="hint">
-  <summary>最終問題 - ヒント9</summary>
-  <p>テーブル配置図とムービーに共通点がないか<br>
-  <img src="images/table.png" alt="テーブルレイアウト"></p>
-  <details class="hint">
-  <summary>最終問題 - ヒント10</summary>
-  <p>ムービーの下側が新郎新婦席とし、ムービー枠の各色の場所があなたのテーブル</p>
-  </details> <!--710 -->
-  </details> <!--9 -->
+  <p>出会い＝交際開始日より前<br>プロポーズ＝交際開始日と問3の答えから計算<br>両家顔合せ＝プロポーズより後で入籍日より前<br>同居＝消去法</p>
   </details> <!--8 -->
   </details> <!--7 -->
   </details> <!--6 -->
@@ -474,8 +599,9 @@
 <nav>
 <ul>
 <li><a href="index.html">ホーム</a></li>
-<li><a href="question.html">問題</a></li>
+<li><a href="question.html">謎解き</a></li>
 <li><a href="answer.html">正解（席次表）</a></li>
+<li><a href="item.html">会場アイテム</a></li>
 </ul>
 </nav>
 
@@ -492,7 +618,6 @@
 
 <!--パララックス（inview）-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
-<script src="js/jquery.inview_set.js"></script>
 
 <!--このテンプレート専用のスクリプト-->
 <script src="js/main.js"></script>
