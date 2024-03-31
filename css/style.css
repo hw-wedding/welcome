@@ -654,6 +654,13 @@ footer .pr {display: block;}
     display: block;
     max-width: 100%;
 }
+
+.q3_cal {
+    display: inline-block;
+    width: 45px;
+    max-width: 25%;
+}
+
 .ring{
     position: absolute;
     opacity: 0.0;

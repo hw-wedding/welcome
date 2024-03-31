@@ -32,7 +32,7 @@
 
 	function answer_check(n){
 		if( 
-			( n==1 && (answer1text.value == "光" || answer1text.value == "若奈" || answer1text.value == "塚本光" || answer1text.value == "長田若奈") )
+			( n==1 && (answer1text.value == "光" || answer1text.value == "若奈" || answer1text.value.replace(/[\s\u{3000}]/ug, '') == "塚本光" || answer1text.value.replace(/[\s\u{3000}]/ug, '') == "長田若奈" || answer1text.value.replace(/[\s\u{3000}]/ug, '') == "塚本若奈") )
 		|| ( n==2 && (answer2text.value == "20221123" || answer2text.value == "２０２２１１２３" ) )
 		|| ( n==3 && (answer3text.value == "332" || answer3text.value == "３３２") )
 		|| ( n==4 && answer4text.value == "猫ミーム" )
@@ -128,6 +128,9 @@
 	  document.body.appendChild(modal);
 	  modal.style.display = 'flex';
 
+	  //ページの上部へ戻るボタン非表示
+	  document.getElementById("pagetop").style.display = 'none';
+
 	  // モーダルのクリックイベント（モーダルを閉じる）
 	  modal.addEventListener('click', () => {
 	    closeModal(modal);
@@ -142,6 +145,10 @@
 	  modal.addEventListener('animationend', () => {
 	    modal.style.display = 'none';
 	    document.body.removeChild(modal);
+
+	  //ページの上部へ戻るボタン表示
+	  document.getElementById("pagetop").style.display = 'flex';
+
 	  });
 	  
 	  all_ring_check(true);
@@ -261,6 +268,7 @@
 </details>
 
 <h2>Question<span>問題</span></h2>
+<p>グループを確認したら謎解きに挑戦しましょう</p>
 
 <h3>最初の問題</h3>
 
@@ -322,7 +330,7 @@
   </details> <!--2 -->
   </details> <!--1 -->
   <p>
-  問2回答：<input type="text" id="answer2text"  type="number"/>
+  問2回答：<input id="answer2text"  type="number"/>
   <input type="button" id="answer2" value="送信" onClick="return answer_check(2);" />
   </p>
   <p><span id="q2_message"></span></p>
@@ -338,14 +346,14 @@
   
   <p>
  (
- <input type="text" id="q3_cal_1" size="1.5" type="number"/>
+ <input id="q3_cal_1" class="q3_cal" type="number"/>
  ×
- <input type="text" id="q3_cal_2" size="1.5" type="number"/>
+ <input id="q3_cal_2" class="q3_cal" type="number"/>
  ＋
- <input type="text" id="q3_cal_3" size="1.5" type="number"/>
+ <input id="q3_cal_3" class="q3_cal" type="number"/>
  )
  ×
- <input type="text" id="q3_cal_4" size="1.5" type="number"/>
+ <input id="q3_cal_4" class="q3_cal" type="number"/>
   <input type="button" id="q3_cal" value="＝" onClick="return q3_cal();" />
   </p>
   <details class="hint">
@@ -369,7 +377,7 @@
   </details> <!--2 -->
   </details> <!--1 -->
   <p>
-  問3回答：<input type="text" id="answer3text"  type="number"/>
+  問3回答：<input id="answer3text"  type="number"/>
   <input type="button" id="answer3" value="送信" onClick="return answer_check(3);" />
 
   </p>
@@ -398,7 +406,7 @@
   <p>答えは4文字</p>
   <details class="hint">
   <summary>問4 - ヒント5</summary>
-  <p>プロフィールブック中で★が重なっている文字を左から読む</p>
+  <p>プロフィールブック中で肉球が重なっている文字を左から読む</p>
   <details class="hint">
   <summary>問4 - ヒント6</summary>
   <p>1文字目：新郎の好きなもの<br>2文字目：猫のひげ<br>3文字目：第一印象<br>4文字目：新婦の好きなもの</p>
@@ -533,8 +541,9 @@
 <h3>最終問題</h3>
 <p><img src="images/ring_after1.png" width="300px"></p>
 <p><img src="images/ring_after2.png" width="300px"></p>
-<p>謎解きの答えはテーブルですが正解には席まで記載しています<br>
-右上のメニューから席次表をご確認ください</p>
+<p>グループによって難易度が異なります<br>ご自身のグループで解けたら別のグループにも挑戦してみてください</p>
+<p>答えが分かった方は右上のメニューから席次表をご確認ください<br>
+謎解きの答えはテーブルですが正解には席まで記載しています</p>
 
   <details class="hint">
   <summary>最終問題 - ヒント1</summary>
@@ -550,17 +559,21 @@
   <p>自分のグループ番号の問題で見つけた指輪からあみだくじをして、イベントを判断する</p>
   <details class="hint">
   <summary>最終問題 - ヒント5</summary>
-  <p>あみだくじのイベントの日付がテーブル配置図の日付に対応している</p>
+  <p>あみだくじのイベントが7個でテーブル配置図の日付も7個<br>各イベントの日付を表している</p>
   <details class="hint">
   <summary>最終問題 - ヒント6</summary>
-  <p>交際開始　入籍　結婚式の日付は今までに目にしているはず<br>
-  その他の日付は他の情報から計算や推測する</p>
+  <p>難易度★　交際開始　結婚式<br>難易度★★　出会い　プロポーズ　入籍<br>難易度★★★　両家顔合せ　同居</p>
   <details class="hint">
   <summary>最終問題 - ヒント7</summary>
-  <p>交際開始日＝問2の答え<br>入籍日＝ムービー中に記載<br>結婚式＝今日の日付</p>
+  <p>交際開始　入籍　結婚式の日付は今までに目にしているはず<br>
+  その他の日付はイベントの発生順やほかの情報と組み合わせて推測する</p>
   <details class="hint">
   <summary>最終問題 - ヒント8</summary>
+  <p>交際開始日＝問2の答え<br>入籍日＝ムービー中に記載<br>結婚式＝今日の日付</p>
+  <details class="hint">
+  <summary>最終問題 - ヒント9</summary>
   <p>出会い＝交際開始日より前<br>プロポーズ＝交際開始日と問3の答えから計算<br>両家顔合せ＝プロポーズより後で入籍日より前<br>同居＝消去法</p>
+  </details> <!--9 -->
   </details> <!--8 -->
   </details> <!--7 -->
   </details> <!--6 -->
@@ -591,7 +604,7 @@
 </footer>
 
 <!--ページの上部へ戻るボタン-->
-<div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
+<div class="pagetop" id="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
 
 </div>
 <!--/#container-->
