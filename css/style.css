@@ -66,7 +66,7 @@ html,body {
 body {
 	font-family: 'M PLUS Rounded 1c', "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;	/*フォント種類*/
 	-webkit-text-size-adjust: none;
-	background: #fff;	/*背景色*/
+	background: #f0f8ff;	/*背景色*/
 	color: #777;		/*文字色*/
 	line-height: 2;		/*行間*/
 }
