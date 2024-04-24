@@ -34,9 +34,9 @@
 		if( 
 			( n==1 && (answer1text.value == "光" || answer1text.value == "若奈" || answer1text.value.replace(/[\s\u{3000}]/ug, '') == "塚本光" || answer1text.value.replace(/[\s\u{3000}]/ug, '') == "長田若奈" || answer1text.value.replace(/[\s\u{3000}]/ug, '') == "塚本若奈") )
 		|| ( n==2 && (answer2text.value == "20221123" || answer2text.value == "２０２２１１２３" ) )
-		|| ( n==3 && (answer3text.value == "332" || answer3text.value == "３３２") )
+		|| ( n==3 && answer3text.value == "てつお" )
 		|| ( n==4 && answer4text.value == "猫ミーム" )
-		|| ( n==5 && answer5text.value == "てつお" )
+		|| ( n==5 && (answer5text.value == "332" || answer5text.value == "３３２") )
 		|| ( n==6 && answer6text.value == "リングフィット" )
 		){
 			window.sessionStorage.setItem(['q'+n],['OK']);
@@ -51,9 +51,9 @@
 		var str_q_message = [
 			'問1正解！！<br>光と若奈です！よろしくお願いします！',
 			'問2正解！！<br>2022年11月23日は勤労感謝の日で<br>日付固定の祝日なので毎年休みで嬉しいです',
-			'問3正解！！<br>332日＝11か月弱です',
+			'問3正解！！<br>新婦が命名しました',
 			'問4正解！！<br>猫ミームはカワイイ＆面白いのでおススメです',
-			'問5正解！！<br>新婦が命名しました',
+			'問5正解！！<br>332日＝11か月弱です',
 			'問6正解！！<br>運動嫌いでも<span onClick="return click_ring(6);">リング</span>フィットは続けられました'
 		];
 		var str_q_key = [
@@ -96,12 +96,12 @@
 		}
 	}
 
-	function q3_cal(){
-		var q3_cal_1=Number(document.getElementById("q3_cal_1").value);
-		var q3_cal_2=Number(document.getElementById("q3_cal_2").value);
-		var q3_cal_3=Number(document.getElementById("q3_cal_3").value);
-		var q3_cal_4=Number(document.getElementById("q3_cal_4").value);
-		var ans=(q3_cal_1*q3_cal_2+q3_cal_3)*q3_cal_4;
+	function q5_cal(){
+		var q5_cal_1=Number(document.getElementById("q5_cal_1").value);
+		var q5_cal_2=Number(document.getElementById("q5_cal_2").value);
+		var q5_cal_3=Number(document.getElementById("q5_cal_3").value);
+		var q5_cal_4=Number(document.getElementById("q5_cal_4").value);
+		var ans=(q5_cal_1*q5_cal_2+q5_cal_3)*q5_cal_4;
 		alert(ans);
 	}
 	
@@ -143,9 +143,6 @@
 	    modal.style.display = 'none';
 	    document.body.removeChild(modal);
 
-	  //ページの上部へ戻るボタン表示
-	  document.getElementById("pagetop").style.display = 'flex';
-
 	  });
 	  
 	  all_ring_check(true);
@@ -163,15 +160,53 @@
 				alert("すべての指輪を集めました\n次が最終問題です");
 			}
 			document.getElementById('ring_after').style.display = 'block';
+			document.getElementById('ring_after2').style.display = 'none';
 			all_ring=true;
 			//ページスクロール
 			var targetY = document.getElementById('ring_after').getBoundingClientRect().top + window.pageYOffset;
 			$('body,html').animate({scrollTop: targetY}, 300, 'swing');
 		}else{
 			document.getElementById('ring_after').style.display = 'none';
+			document.getElementById('ring_after2').style.display = 'none';
 		}
 	}
 
+	function answer_last1(){
+		if ( group_ans1.value==""){
+			 //何もしない
+		}else if ( (group_ans1.value=="1" && month.value=="4" && day.value=="13")
+				|| (group_ans1.value=="2" && month.value=="1" && day.value=="1")
+				|| (group_ans1.value=="3" && month.value=="11" && day.value=="23")
+				|| (group_ans1.value=="4" && month.value=="11" && day.value=="3")
+				|| (group_ans1.value=="5" && month.value=="10" && day.value=="21")
+				|| (group_ans1.value=="6" && month.value=="1" && day.value=="4")
+		){
+		 	document.getElementById("last1_message").innerHTML = "<p><img src=\"images/ring_after1_ans.png\" width=\"300px\"></p>";
+		 	alert("正解！！\n最終問題ステップ2に進みます");
+		 	document.getElementById('ring_after2').style.display = 'block';
+			var targetY = document.getElementById('ring_after2').getBoundingClientRect().top + window.pageYOffset;
+			$('body,html').animate({scrollTop: targetY}, 300, 'swing');
+		}else{
+		  	alert("不正解です");
+		}
+	}
+	function answer_last2(){
+		if ( group_ans2.value=="" || table_ans.value==""){
+			 //何もしない
+		}else if ( (group_ans2.value=="1" && table_ans.value=="A")
+				|| (group_ans2.value=="2" && table_ans.value=="D")
+				|| (group_ans2.value=="3" && table_ans.value=="E")
+				|| (group_ans2.value=="4" && table_ans.value=="F")
+				|| (group_ans2.value=="5" && table_ans.value=="C")
+				|| (group_ans2.value=="6" && table_ans.value=="B")
+		){
+		  	alert("正解！！すべての謎が解けました！すごい！！\n\n席次表には座席まで記載しています\n右上のメニューから席次表をご確認ください");
+		  
+		}else{
+		  	alert("不正解です");
+		}
+	}
+	
     function reset(){
 		if(window.confirm('すべての回答がクリアされますがよろしいですか？\n（最初から解きたい場合や動作がおかしい場合のみ実行してください）')){
 			window.sessionStorage.clear();
@@ -204,8 +239,8 @@
 <p>謎解きはご自身のテーブルを当てる内容です</p>
 <p>テーブルごとのグループ分けは以下の通りです</p>
 
-<details open class="question">
-<summary>グループ</summary>
+<details class="question">
+<summary><img class="question" src="images/ring_h.png" width="30px"> 新郎　ゲスト</summary>
 <dl class="new">
 <dt>グループ1</dt>
 <dd>
@@ -234,6 +269,12 @@
 安田有佑 様<br>
 山田健太 様<br>
 </dd>
+</dl>
+</details>
+
+<details class="question">
+<summary><img class="question" src="images/ring_w.png" width="30px"> 新婦　ゲスト</summary>
+<dl class="new">
 <dt>グループ4</dt>
 <dd>
 近藤紫布 様<br>
@@ -250,7 +291,6 @@
 中村光児 様<br>
 名倉宏貴 様<br>
 長谷川千紗 様<br>
-
 </dd>
 <dt>グループ6</dt>
 <dd>
@@ -259,13 +299,12 @@
 小林由幸 様<br>
 田中久美 様<br>
 山下由貴 様<br>
-
 </dd>
 </dl>
 </details>
 
 <h2>Question<span>問題</span></h2>
-<p>グループを確認したら謎解きに挑戦しましょう</p>
+<p>グループを確認したら謎解きに挑戦しましょう<br>このページとご自身のスマホ　及び会場内にあるものを使います</p>
 
 <h3>最初の問題</h3>
 
@@ -290,7 +329,7 @@
   <p><img class="question" src="images/q1_hint1.png" width="180px"></p>
   <details class="hint">
   <summary>問1 - ヒント4</summary>
-  <p>ひらがなをカタカナに</p>
+  <p>「た」と「ろ」をカタカナに</p>
   </details> <!--4 -->
   </details> <!--3 -->
   </details> <!--2 -->
@@ -341,42 +380,37 @@
   <img id="ring3" class="ring" src="images/taparea.png" onClick="return click_ring(3);">
   </div></p>
   
-  <p>
- (
- <input id="q3_cal_1" class="q3_cal" type="number"/>
- ×
- <input id="q3_cal_2" class="q3_cal" type="number"/>
- ＋
- <input id="q3_cal_3" class="q3_cal" type="number"/>
- )
- ×
- <input id="q3_cal_4" class="q3_cal" type="number"/>
-  <input type="button" id="q3_cal" value="＝" onClick="return q3_cal();" />
-  </p>
   <details class="hint">
   <summary>問3 - ヒント1</summary>
-  <p><img class="question" src="images/q3_hint1.png" width="180px"></p>
+  <p>招待状を確認しよう</p>
   <details class="hint">
   <summary>問3 - ヒント2</summary>
-  <p><img class="question" src="images/q3_hint2.png" width="180px"></p>
+  <p>出てきたアルファベットをひらがなにします</p>
   <details class="hint">
   <summary>問3 - ヒント3</summary>
-  <p><img class="question" src="images/q3_hint3.png" width="180px"></p>
+  <p>4は向きに注目</p>
   <details class="hint">
   <summary>問3 - ヒント4</summary>
-  <p><img class="question" src="images/q3_hint4.png" width="180px"></p>
+  <p>3は右上の部分を左右反転/上下反転させて組み合わせる</p>
   <details class="hint">
   <summary>問3 - ヒント5</summary>
-  <p>今は何階？<br>手の形が表している数は？<br>今は何問目？<br>今は何月？</p>
+  <p><img class="question" src="images/q3_hint1.png" width="180px"></p>
+  <details class="hint">
+  <summary>問3 - ヒント6</summary>
+  <p><img class="question" src="images/q3_hint2.png" width="180px"></p>
+  <details class="hint">
+  <summary>問3 - ヒント7</summary>
+  <p><img class="question" src="images/q3_hint3.png" width="180px"></p>
+  </details> <!--7 -->
+  </details> <!--6 -->
   </details> <!--5 -->
   </details> <!--4 -->
   </details> <!--3 -->
   </details> <!--2 -->
   </details> <!--1 -->
   <p>
-  問3回答：<input id="answer3text"  type="number"/>
+  問3回答：<input type="text" id="answer3text" />
   <input type="button" id="answer3" value="送信" onClick="return answer_check(3);" />
-
   </p>
   <p><span id="q3_message"></span></p>
 </details>
@@ -432,36 +466,47 @@
   <img id="ring5" class="ring" src="images/taparea.png" onClick="return click_ring(5);">
   </div></p>
   
+  <p>
+ (
+ <input id="q5_cal_1" class="q5_cal" type="number"/>
+ ×
+ <input id="q5_cal_2" class="q5_cal" type="number"/>
+ ＋
+ <input id="q5_cal_3" class="q5_cal" type="number"/>
+ )
+ ×
+ <input id="q5_cal_4" class="q5_cal" type="number"/>
+  <input type="button" id="q5_cal" value="＝" onClick="return q5_cal();" />
+  </p>
   <details class="hint">
   <summary>問5 - ヒント1</summary>
-  <p>招待状を確認しよう</p>
-  <details class="hint">
-  <summary>問5 - ヒント2</summary>
-  <p>出てきたアルファベットをひらがなにします</p>
-  <details class="hint">
-  <summary>問5 - ヒント3</summary>
-  <p>4は向きに注目</p>
-  <details class="hint">
-  <summary>問5 - ヒント4</summary>
-  <p>3は右上の部分を左右反転、上下反転させて組み合わせる</p>
-  <details class="hint">
-  <summary>問5 - ヒント5</summary>
   <p><img class="question" src="images/q5_hint1.png" width="180px"></p>
   <details class="hint">
-  <summary>問5 - ヒント6</summary>
+  <summary>問5 - ヒント2</summary>
   <p><img class="question" src="images/q5_hint2.png" width="180px"></p>
-  </details> <!--6 -->
+  <details class="hint">
+  <summary>問5 - ヒント3</summary>
+  <p><img class="question" src="images/q5_hint3.png" width="180px"></p>
+  <details class="hint">
+  <summary>問5 - ヒント4</summary>
+  <p><img class="question" src="images/q5_hint4.png" width="180px"></p>
+  <details class="hint">
+  <summary>問5 - ヒント5</summary>
+  <p>今は何階？<br>今は何問目？<br>今の時間の短針は何？<br>今は何月？</p>
   </details> <!--5 -->
   </details> <!--4 -->
   </details> <!--3 -->
   </details> <!--2 -->
   </details> <!--1 -->
   <p>
-  問5回答：<input type="text" id="answer5text" />
+  問5回答：<input id="answer5text"  type="number"/>
   <input type="button" id="answer5" value="送信" onClick="return answer_check(5);" />
+
   </p>
   <p><span id="q5_message"></span></p>
 </details>
+
+
 <p><span id="q5_key"></span></p>
 
 <details open class="question">
@@ -524,22 +569,26 @@
   <p>探す対象は6か所で問題も6つということは…</p>
   <details class="hint">
   <summary>キーワードの指示 - ヒント2</summary>
-  <p>1つ目：Questionに注目</p>
+  <p>ヒントの中にはありません</p>
   <details class="hint">
   <summary>キーワードの指示 - ヒント3</summary>
-  <p>2つ目：拡大してよく見ると…</p>
+  <p>1つ目：Questionに注目</p>
   <details class="hint">
   <summary>キーワードの指示 - ヒント4</summary>
-  <p>3つ目：結婚指輪はどこにつける？</p>
+  <p>2つ目：拡大してよく見ると…</p>
   <details class="hint">
   <summary>キーワードの指示 - ヒント5</summary>
-  <p>4つ目：改行に違和感</p>
+  <p>3つ目：結婚指輪はどこにつける？</p>
   <details class="hint">
   <summary>キーワードの指示 - ヒント6</summary>
-  <p>5つ目：隠していない</p>
+  <p>4つ目：改行に違和感</p>
   <details class="hint">
   <summary>キーワードの指示 - ヒント7</summary>
+  <p>5つ目：隠していない</p>
+  <details class="hint">
+  <summary>キーワードの指示 - ヒント8</summary>
   <p>6つ目：指輪を英語にすると？</p>
+  </details> <!--8 -->
   </details> <!--7 -->
   </details> <!--6 -->
   </details> <!--5 -->
@@ -552,44 +601,103 @@
   </details> <!--1 -->
 </div>
 <br>
-
-
 <div id="ring_after">
-<h3>最終問題</h3>
-<p><img src="images/ring_after1.png" width="300px"></p>
-<p><img src="images/ring_after2.png" width="300px"></p>
-<p>グループによって難易度が異なります<br>ご自身のグループで解けたら別のグループにも挑戦してみてください</p>
-<p>答えが分かった方は右上のメニューから席次表をご確認ください<br>
-謎解きの答えはテーブルですが正解には席まで記載しています</p>
-
+<h3>最終問題 ステップ1</h3>
+<p>ここからはグループごとに答えが異なります</p>
+<p><img src="images/ring_after1-1.png" width="300px"><br>
+<img src="images/ring_after1-2.png" width="300px"></p>
   <details class="hint">
-  <summary>最終問題 - ヒント1</summary>
-  <p>指輪は問題に対応している</p>
-  <details class="hint">
-  <summary>最終問題 - ヒント2</summary>
+  <summary>最終問題 ステップ1 - ヒント1</summary>
   <p>グループ数も問題数も6つ</p>
   <details class="hint">
-  <summary>最終問題 - ヒント3</summary>
+  <summary>最終問題 ステップ1 - ヒント2</summary>
   <p>自分のグループ番号は覚えていますか？</p>
   <details class="hint">
-  <summary>最終問題 - ヒント4</summary>
-  <p>自分のグループ番号の問題で見つけた指輪からあみだくじをして、イベントを判断する</p>
+  <summary>最終問題 ステップ1 - ヒント3</summary>
+  <p>赤文字の解き方は問1と同じ</p>
   <details class="hint">
-  <summary>最終問題 - ヒント5</summary>
-  <p>あみだくじのイベントが7個でテーブル配置図の日付も7個<br>各イベントの日付を表している</p>
+  <summary>最終問題 ステップ1 - ヒント4</summary>
+  <p>月＝右<br>日＝茶を加算</p>
   <details class="hint">
-  <summary>最終問題 - ヒント6</summary>
-  <p>難易度★　交際開始　結婚式<br>難易度★★　出会い　プロポーズ　入籍<br>難易度★★★　両家顔合せ　同居</p>
+  <summary>最終問題 ステップ1 - ヒント5</summary>
+  <p>月＝右側に伸びている線の先の数字<br>日＝茶色の線で繋がっている数字を足す</p>
+  </details> <!--5 -->
+  </details> <!--4 -->
+  </details> <!--3 -->
+  </details> <!--2 -->
+  </details> <!--1 -->
+  <p>
+  最終問題ステップ1回答：<br>
+<select id="group_ans1">
+<option value="">グループ</option>
+<option value="1">グループ1</option>
+<option value="2">グループ2</option>
+<option value="3">グループ3</option>
+<option value="4">グループ4</option>
+<option value="5">グループ5</option>
+<option value="6">グループ6</option>
+</select>
+<input id="month" class="q5_cal" type="number"/>月<input id="day" class="q5_cal" type="number"/>日
+  <input type="button" id="answer_last1" value="送信" onClick="return answer_last1();" />
+  </p>
+<p><span id="last1_message"></span></p>
+</div>
+
+
+
+
+<div id="ring_after2">
+<h3>最終問題 ステップ2</h3>
+<p><img src="images/ring_after2-1.png" width="300px"></p>
+<p><img src="images/ring_after2-2.png" width="300px"></p>
+
   <details class="hint">
-  <summary>最終問題 - ヒント7</summary>
-  <p>交際開始　入籍　結婚式の日付は今までに目にしているはず<br>
-  その他の日付はイベントの発生順やほかの情報と組み合わせて推測する</p>
+  <summary>最終問題 ステップ2 - ヒント1</summary>
+  <p>最終問題 ステップ1の答えの日付を使う</p>
   <details class="hint">
-  <summary>最終問題 - ヒント8</summary>
-  <p>交際開始日＝問2の答え<br>入籍日＝ムービー中に記載<br>結婚式＝今日の日付</p>
+  <summary>最終問題 ステップ2 - ヒント2</summary>
+  <p>画像の枠が問6と同じ</p>
   <details class="hint">
-  <summary>最終問題 - ヒント9</summary>
-  <p>出会い＝交際開始日より前<br>プロポーズ＝交際開始日と問3の答えから計算<br>両家顔合せ＝プロポーズより後で入籍日より前<br>同居＝消去法</p>
+  <summary>最終問題 ステップ2 - ヒント3</summary>
+  <p>各画像はムービー中に登場している</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント4</summary>
+  <p><img class="question" src="images/ring_after2_hint1.png" width="300px"></p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント5</summary>
+  <p>1月と4月の日付はムービーに登場している</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント6</summary>
+  <p>11月23日は問2の答え</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント7</summary>
+  <p>交際開始日は問2の答えと問5から計算できる</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント8</summary>
+  <p>残り1つの日付は消去法</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント9</summary>
+  <p>1月1日　入籍日<br>1月4日　新郎誕生日<br>4月13日　新婦誕生日<br>4月29日　結婚式<br>10月21日　プロポーズ<br>11月3日　出会った日<br>11月23日　交際開始日</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント10</summary>
+  <p>新郎新婦の席はどこ？</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント11</summary>
+  <p>グループ分けの部分に新郎新婦の指輪がある</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント12</summary>
+  <p>最終問題 ステップ1の一番下は新郎新婦の指輪</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント13</summary>
+  <p>ムービー中の「Welcome to our Wedding!」のタイミングでは今日の日付（4月29日）が書かれている</p>
+  <details class="hint">
+  <summary>最終問題 ステップ2 - ヒント14</summary>
+  <p>「Welcome to our Wedding!」の場所が新郎新婦のテーブルなので　テーブル配置図を参考に新郎新婦テーブルからの相対的な場所を考える</p>
+  </details> <!--14 -->
+  </details> <!--13 -->
+  </details> <!--12 -->
+  </details> <!--11 -->
+  </details> <!--10 -->
   </details> <!--9 -->
   </details> <!--8 -->
   </details> <!--7 -->
@@ -599,6 +707,30 @@
   </details> <!--3 -->
   </details> <!--2 -->
   </details> <!--1 -->
+
+  <p>
+  最終問題ステップ2回答：<br>
+<select id="group_ans2">
+<option value="">グループ</option>
+<option value="1">グループ1</option>
+<option value="2">グループ2</option>
+<option value="3">グループ3</option>
+<option value="4">グループ4</option>
+<option value="5">グループ5</option>
+<option value="6">グループ6</option>
+</select>
+<select id="table_ans">
+<option value="">テーブル</option>
+<option value="A">テーブルA</option>
+<option value="B">テーブルB</option>
+<option value="C">テーブルC</option>
+<option value="D">テーブルD</option>
+<option value="E">テーブルE</option>
+<option value="F">テーブルF</option>
+</select>
+  <input type="button" id="answer_last2" value="送信" onClick="return answer_last2();" />
+  </p>
+
 
 </div>
 <br>
